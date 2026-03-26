@@ -17,15 +17,7 @@
       >
     {%- endif -%}
 
-    {% comment %} This a way to wait for main content to load when navigating to a new page so that the view transitions can work consistently {% endcomment %}
-    {% if settings.transition_to_main_product or settings.page_transition_enabled %}
-      <link
-        rel="expect"
-        href="#MainContent"
-        blocking="render"
-        id="view-transition-render-blocker"
-      >
-    {% endif %}
+    {% comment %} Removed blocking="render" — was blocking every page render until #MainContent was parsed, causing slow navigation {% endcomment %}
 
     {%- render 'meta-tags' -%}
     {%- render 'stylesheets' -%}
@@ -63,21 +55,26 @@
     <div class="gv-cursor-ring" aria-hidden="true"></div>
 
     {%- comment -%} Page transition overlay {%- endcomment -%}
-    <div class="gv-page-transition" aria-hidden="true"></div>
+    <div class="gv-page-transition" aria-hidden="true">
+      <div class="gv-pt-inner">
+        <img src="{{ 'Logo.png' | asset_url }}" alt="" class="gv-pt-logo" width="160" height="160">
+        <p class="gv-pt-label">Loading<span class="gv-pt-dots"><span>.</span><span>.</span><span>.</span></span></p>
+      </div>
+    </div>
 
     {%- comment -%} Announcement marquee strip {%- endcomment -%}
     <div class="gv-marquee-wrap" aria-label="Announcements">
       <div class="gv-marquee-track" role="marquee">
-        <span class="gv-marquee-item">Free Shipping on Orders Over $75</span>
+        <span class="gv-marquee-item">Opens at noon Wednesday - Sunday</span>
         <span class="gv-marquee-item">Curated Vintage &amp; Secondhand Finds</span>
         <span class="gv-marquee-item">New Arrivals Every Week</span>
         <span class="gv-marquee-item">Sustainably Sourced Fashion</span>
-        <span class="gv-marquee-item">Follow Us @GhostsVintage</span>
-        <span class="gv-marquee-item">Free Shipping on Orders Over $75</span>
+        <span class="gv-marquee-item">Follow Us @ghosts.seattle.vintage</span>
+        <span class="gv-marquee-item">Opens at noon Wednesday - Sunday</span>
         <span class="gv-marquee-item">Curated Vintage &amp; Secondhand Finds</span>
         <span class="gv-marquee-item">New Arrivals Every Week</span>
         <span class="gv-marquee-item">Sustainably Sourced Fashion</span>
-        <span class="gv-marquee-item">Follow Us @GhostsVintage</span>
+        <span class="gv-marquee-item">Follow Us @ghosts.seattle.vintage</span>
       </div>
     </div>
 

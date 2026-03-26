@@ -47,7 +47,7 @@
     });
 
     // Step 2: after logo settles, wipe the intro away
-    const holdTime = prefersReducedMotion() ? 100 : 1300;
+    const holdTime = prefersReducedMotion() ? 100 : 900;
     setTimeout(() => {
       intro.classList.add('gv-intro--exit');
       intro.addEventListener('animationend', () => {
@@ -275,13 +275,14 @@
     const overlay = qs('.gv-page-transition');
     if (!overlay || prefersReducedMotion()) return;
 
-    // Slide overlay out on page load (in-transition)
+    // On page arrive: wipe overlay upward off screen
     overlay.classList.add('gv-page-transition--in');
     overlay.addEventListener('animationend', () => {
       overlay.classList.remove('gv-page-transition--in');
     }, { once: true });
 
-    // Intercept internal links
+    // On link click: wipe overlay down, then navigate
+    // Hard 350ms timeout ensures navigation ALWAYS fires even if transitionend misfires
     document.addEventListener('click', (e) => {
       const anchor = e.target.closest('a[href]');
       if (!anchor) return;
@@ -299,9 +300,16 @@
 
       e.preventDefault();
       overlay.classList.add('gv-page-transition--out');
-      overlay.addEventListener('transitionend', () => {
+
+      let navigated = false;
+      const navigate = () => {
+        if (navigated) return;
+        navigated = true;
         window.location.href = href;
-      }, { once: true });
+      };
+
+      overlay.addEventListener('transitionend', navigate, { once: true });
+      setTimeout(navigate, 150); // hard fallback — matches 0.12s transition + buffer
     });
   }
 
@@ -329,11 +337,11 @@
      ========================================================= */
 
   function initImageSwap() {
+    if (isMobile()) return;
     qsa('.product-card, .card--product').forEach(card => {
       const imgs = qsa('img', card);
       if (imgs.length < 2) return;
 
-      const primary   = imgs[0];
       const secondary = imgs[1];
 
       secondary.style.position = 'absolute';
