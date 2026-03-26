@@ -6,6 +6,9 @@
   lang="{{ request.locale.iso_code }}"
 >
   <head>
+    {%- comment -%} Ghosts Vintage favicon — always use Logo.png from assets {%- endcomment -%}
+    <link rel="icon" type="image/png" href="{{ 'Logo.png' | asset_url }}">
+    <link rel="apple-touch-icon" href="{{ 'Logo.png' | asset_url }}">
     {%- if settings.favicon != blank -%}
       <link
         rel="icon"
@@ -38,7 +41,46 @@
     {{ content_for_header }}
   </head>
 
-  <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
+  <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}" data-template="{{ template.name }}">
+
+    {%- comment -%} ========= GHOSTS VINTAGE — Custom UI Elements ========= {%- endcomment -%}
+
+    {%- comment -%} Page intro animation (only shown on first visit per session) {%- endcomment -%}
+    <div class="gv-intro" id="gv-intro" aria-hidden="true">
+      <img
+        src="{{ 'Ghosts Vintage .png' | asset_url }}"
+        alt="{{ shop.name }}"
+        class="gv-intro__logo"
+        width="340"
+        height="120"
+        loading="eager"
+      >
+      <div class="gv-intro__line"></div>
+    </div>
+
+    {%- comment -%} Custom cursor (desktop only) {%- endcomment -%}
+    <div class="gv-cursor" aria-hidden="true"></div>
+    <div class="gv-cursor-ring" aria-hidden="true"></div>
+
+    {%- comment -%} Page transition overlay {%- endcomment -%}
+    <div class="gv-page-transition" aria-hidden="true"></div>
+
+    {%- comment -%} Announcement marquee strip {%- endcomment -%}
+    <div class="gv-marquee-wrap" aria-label="Announcements">
+      <div class="gv-marquee-track" role="marquee">
+        <span class="gv-marquee-item">Free Shipping on Orders Over $75</span>
+        <span class="gv-marquee-item">Curated Vintage &amp; Secondhand Finds</span>
+        <span class="gv-marquee-item">New Arrivals Every Week</span>
+        <span class="gv-marquee-item">Sustainably Sourced Fashion</span>
+        <span class="gv-marquee-item">Follow Us @GhostsVintage</span>
+        <span class="gv-marquee-item">Free Shipping on Orders Over $75</span>
+        <span class="gv-marquee-item">Curated Vintage &amp; Secondhand Finds</span>
+        <span class="gv-marquee-item">New Arrivals Every Week</span>
+        <span class="gv-marquee-item">Sustainably Sourced Fashion</span>
+        <span class="gv-marquee-item">Follow Us @GhostsVintage</span>
+      </div>
+    </div>
+
     {% render 'skip-to-content-link', href: '#MainContent', text: 'accessibility.skip_to_text' %}
     <div id="header-group">
       {% sections 'header-group' %}
@@ -132,5 +174,8 @@
     {% if settings.quick_add or settings.mobile_quick_add %}
       {% render 'quick-add-modal' %}
     {% endif %}
+
+    {%- comment -%} Ghosts Vintage — custom animations & effects {%- endcomment -%}
+    <script src="{{ 'gv-custom.js' | asset_url }}" defer></script>
   </body>
 </html>

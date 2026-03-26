@@ -1,0 +1,851 @@
+/* =================================================================
+   GHOSTS VINTAGE — Custom Theme Styles
+   Dark luxury aesthetic inspired by Last Crumb
+   Brand accent: #E84C2B (logo red-orange)
+   ================================================================= */
+
+/* ---- Design Tokens ---- */
+:root {
+  --gv-black:        #080808;
+  --gv-off-black:    #111111;
+  --gv-surface:      #181818;
+  --gv-white:        #f5f4f0;
+  --gv-off-white:    #e8e6e0;
+  --gv-muted:        rgba(245, 244, 240, 0.45);
+  --gv-red:          #E84C2B;
+  --gv-red-dark:     #c73d21;
+  --gv-red-glow:     rgba(232, 76, 43, 0.25);
+  --gv-border:       rgba(245, 244, 240, 0.09);
+  --gv-border-mid:   rgba(245, 244, 240, 0.18);
+
+  --gv-ease:         cubic-bezier(0.25, 0.1, 0.25, 1);
+  --gv-ease-out:     cubic-bezier(0, 0, 0.18, 1);
+  --gv-spring:       cubic-bezier(0.34, 1.56, 0.64, 1);
+  --gv-t-fast:       0.18s;
+  --gv-t-mid:        0.42s;
+  --gv-t-slow:       0.72s;
+  --gv-t-xslow:      1.1s;
+}
+
+/* ================================================================
+   GLOBAL RESET
+   ================================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gv-border-mid) var(--gv-black);
+}
+::-webkit-scrollbar        { width: 4px; }
+::-webkit-scrollbar-track  { background: var(--gv-black); }
+::-webkit-scrollbar-thumb  { background: var(--gv-border-mid); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gv-muted); }
+
+::selection { background: var(--gv-red); color: #fff; }
+
+/* ================================================================
+   DARK THEME OVERRIDE
+   Forces all Horizon color schemes to the dark palette
+   ================================================================ */
+
+body {
+  background-color: var(--gv-black) !important;
+  color: var(--gv-white) !important;
+}
+
+/* Override scheme backgrounds at the section-background level */
+.section-background,
+.color-scheme-1,
+.color-scheme-2,
+.color-scheme-3,
+.color-scheme-4,
+.color-scheme-5 {
+  --color-background:         var(--gv-black);
+  --color-foreground:         var(--gv-white);
+  --color-foreground-heading: var(--gv-white);
+  --color-border:             var(--gv-border);
+  --color-shadow:             rgba(0, 0, 0, 0.8);
+  background-color: var(--gv-black);
+  color: var(--gv-white);
+}
+
+/* The actual section containers — inherit the vars, don't force bg with !important */
+.section,
+[class*="color-scheme"] {
+  --color-background:         var(--gv-black);
+  --color-foreground:         var(--gv-white);
+  --color-foreground-heading: var(--gv-white);
+}
+
+/* Overrides for Horizon CSS variables */
+body {
+  --color-primary-button-background:       var(--gv-red);
+  --color-primary-button-text:             #fff;
+  --color-primary-button-border:           var(--gv-red);
+  --color-primary-button-hover-background: var(--gv-red-dark);
+  --color-secondary-button-background:     transparent;
+  --color-secondary-button-text:           var(--gv-white);
+  --color-secondary-button-border:         var(--gv-border-mid);
+  --color-secondary-button-hover-background: rgba(255,255,255,0.06);
+  --color-secondary-button-hover-text:     var(--gv-white);
+  --color-secondary-button-hover-border:   var(--gv-border-mid);
+  --color-input-background:               var(--gv-surface);
+  --color-input-border:                   var(--gv-border-mid);
+  --color-input-text:                     var(--gv-white);
+  --color-input-hover-background:         var(--gv-off-black);
+}
+
+/* ================================================================
+   CUSTOM CURSOR
+   ================================================================ */
+
+@media (hover: hover) and (pointer: fine) {
+  body { cursor: none; }
+
+  a, button, [role="button"], label, select,
+  input[type="submit"], .button, .product-card { cursor: none; }
+}
+
+.gv-cursor {
+  position: fixed;
+  top: 0; left: 0;
+  width: 8px; height: 8px;
+  background: var(--gv-white);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999999;
+  transform: translate(-50%, -50%) scale(1);
+  transition:
+    width  var(--gv-t-fast) var(--gv-ease),
+    height var(--gv-t-fast) var(--gv-ease),
+    background var(--gv-t-fast) var(--gv-ease),
+    transform var(--gv-t-fast) var(--gv-ease),
+    opacity var(--gv-t-fast) var(--gv-ease);
+  will-change: transform;
+  mix-blend-mode: difference;
+}
+
+.gv-cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 40px; height: 40px;
+  border: 1.5px solid rgba(245, 244, 240, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999998;
+  transform: translate(-50%, -50%);
+  transition:
+    width  0.38s var(--gv-ease-out),
+    height 0.38s var(--gv-ease-out),
+    opacity 0.38s var(--gv-ease),
+    border-color 0.38s var(--gv-ease);
+  will-change: transform;
+}
+
+/* Hover state — expands ring, colors dot */
+body.gv-cursor--link .gv-cursor {
+  width: 52px; height: 52px;
+  background: var(--gv-red);
+  mix-blend-mode: normal;
+}
+body.gv-cursor--link .gv-cursor-ring {
+  width: 52px; height: 52px;
+  opacity: 0;
+}
+
+/* Click pulse */
+body.gv-cursor--click .gv-cursor {
+  transform: translate(-50%, -50%) scale(0.7);
+}
+
+/* ================================================================
+   PAGE INTRO ANIMATION
+   ================================================================ */
+
+.gv-intro {
+  position: fixed;
+  inset: 0;
+  background: var(--gv-black);
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  pointer-events: all;
+}
+
+.gv-intro__logo {
+  width: min(340px, 78vw);
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.8s var(--gv-ease-out),
+    transform 0.8s var(--gv-ease-out);
+  filter: drop-shadow(0 0 60px var(--gv-red-glow));
+}
+
+.gv-intro__line {
+  width: 0;
+  height: 1px;
+  background: var(--gv-red);
+  transition: width 0.7s var(--gv-ease-out) 0.5s;
+}
+
+.gv-intro--show .gv-intro__logo {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gv-intro--show .gv-intro__line {
+  width: min(200px, 50vw);
+}
+
+.gv-intro--exit {
+  animation: gv-intro-exit 0.7s var(--gv-ease-out) forwards;
+}
+
+@keyframes gv-intro-exit {
+  0%   { clip-path: inset(0 0 0 0); opacity: 1; }
+  100% { clip-path: inset(0 0 100% 0); opacity: 1; }
+}
+
+/* ================================================================
+   ANNOUNCEMENT MARQUEE STRIP
+   ================================================================ */
+
+.gv-marquee-wrap {
+  background: var(--gv-red);
+  overflow: hidden;
+  padding: 9px 0;
+  position: relative;
+  z-index: 200;
+}
+
+.gv-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: gv-scroll-left 28s linear infinite;
+  will-change: transform;
+}
+
+.gv-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.gv-marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 0 1.8rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.gv-marquee-item::after {
+  content: '✦';
+  opacity: 0.65;
+  font-size: 0.55rem;
+}
+
+@keyframes gv-scroll-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ================================================================
+   HEADER
+   ================================================================ */
+
+#header-group {
+  position: sticky !important;
+  top: 0;
+  z-index: 500;
+  transition: transform var(--gv-t-mid) var(--gv-ease);
+  will-change: transform;
+}
+
+#header-group.gv-header--hidden {
+  transform: translateY(-100%);
+}
+
+header-component,
+.header-section > header-component {
+  background: rgba(8, 8, 8, 0.92) !important;
+  backdrop-filter: saturate(180%) blur(14px) !important;
+  -webkit-backdrop-filter: saturate(180%) blur(14px) !important;
+  border-bottom: 1px solid var(--gv-border) !important;
+  transition:
+    background var(--gv-t-mid) var(--gv-ease),
+    border-color var(--gv-t-mid) var(--gv-ease) !important;
+}
+
+/* Transparent state on homepage (before scroll) */
+body[data-template="index"] #header-group:not(.gv-header--scrolled) header-component {
+  background: transparent !important;
+  border-bottom-color: transparent !important;
+}
+
+/* Text/icon color in header */
+.header__row--top a,
+.header-menu__item > *,
+.header-actions a,
+.header-actions button {
+  color: var(--gv-white) !important;
+  transition: color var(--gv-t-fast) var(--gv-ease) !important;
+}
+
+.header__row--top a:hover,
+.header-menu__item > *:hover,
+.header-actions a:hover,
+.header-actions button:hover {
+  color: var(--gv-red) !important;
+}
+
+/* ----------------------------------------------------------------
+   Header Logo — uses Ghosts Vintage .png from assets
+   ---------------------------------------------------------------- */
+
+.gv-header-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 10px 0;
+  text-decoration: none;
+  transition: opacity var(--gv-t-fast) var(--gv-ease);
+}
+
+.gv-header-logo:hover {
+  opacity: 0.82;
+}
+
+.gv-header-logo__img {
+  height: 64px;
+  width: auto;
+  object-fit: contain;
+  /* mix-blend-mode: screen makes the white PNG background invisible on dark header
+     so only the red/orange brand lettering shows through */
+  mix-blend-mode: screen;
+  filter: brightness(1.08) saturate(1.1);
+  transition: transform var(--gv-t-mid) var(--gv-spring), filter var(--gv-t-fast) var(--gv-ease);
+}
+
+.gv-header-logo:hover .gv-header-logo__img {
+  transform: scale(1.04);
+  filter: brightness(1.15) saturate(1.2);
+}
+
+/* Ensure the centered logo anchor fills its grid cell properly */
+.header-logo.gv-header-logo {
+  justify-content: center !important;
+  width: 100%;
+}
+
+@media screen and (max-width: 749px) {
+  .gv-header-logo__img { height: 40px; }
+}
+
+/* ================================================================
+   SCROLL REVEAL ANIMATIONS
+   Applied via JS IntersectionObserver
+   ================================================================ */
+
+.gv-reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition:
+    opacity  var(--gv-t-slow) var(--gv-ease-out),
+    transform var(--gv-t-slow) var(--gv-ease-out);
+}
+
+.gv-reveal.gv-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delays for child elements */
+.gv-stagger > *:nth-child(1) { transition-delay: 0.05s; }
+.gv-stagger > *:nth-child(2) { transition-delay: 0.13s; }
+.gv-stagger > *:nth-child(3) { transition-delay: 0.21s; }
+.gv-stagger > *:nth-child(4) { transition-delay: 0.29s; }
+.gv-stagger > *:nth-child(5) { transition-delay: 0.37s; }
+.gv-stagger > *:nth-child(6) { transition-delay: 0.45s; }
+.gv-stagger > *:nth-child(7) { transition-delay: 0.53s; }
+.gv-stagger > *:nth-child(8) { transition-delay: 0.61s; }
+
+/* Horizontal variant */
+.gv-reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition:
+    opacity var(--gv-t-slow) var(--gv-ease-out),
+    transform var(--gv-t-slow) var(--gv-ease-out);
+}
+.gv-reveal-left.gv-in { opacity: 1; transform: translateX(0); }
+
+.gv-reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition:
+    opacity var(--gv-t-slow) var(--gv-ease-out),
+    transform var(--gv-t-slow) var(--gv-ease-out);
+}
+.gv-reveal-right.gv-in { opacity: 1; transform: translateX(0); }
+
+/* Scale up from small */
+.gv-reveal-scale {
+  opacity: 0;
+  transform: scale(0.92);
+  transition:
+    opacity var(--gv-t-slow) var(--gv-ease-out),
+    transform var(--gv-t-slow) var(--gv-ease-out);
+}
+.gv-reveal-scale.gv-in { opacity: 1; transform: scale(1); }
+
+/* ================================================================
+   HERO SECTION — PARALLAX CONTAINER
+   ================================================================ */
+
+.shopify-section:first-of-type {
+  overflow: hidden;
+}
+
+/* Parallax applied via JS – the image layer shifts slower than scroll */
+.gv-parallax-media {
+  will-change: transform;
+  transform: translateY(0px);
+}
+
+/* Text reveal inside hero */
+.hero__content,
+.hero-section__content {
+  animation: gv-hero-text-in 1s var(--gv-ease-out) 0.2s both;
+}
+
+@keyframes gv-hero-text-in {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ================================================================
+   PRODUCT CARDS
+   ================================================================ */
+
+/* Card wrapper */
+.product-card,
+.card--product {
+  background: var(--gv-off-black) !important;
+  border: 1px solid var(--gv-border) !important;
+  border-radius: 2px !important;
+  overflow: hidden;
+  transition:
+    transform var(--gv-t-mid) var(--gv-ease),
+    box-shadow var(--gv-t-mid) var(--gv-ease),
+    border-color var(--gv-t-mid) var(--gv-ease) !important;
+}
+
+.product-card:hover,
+.card--product:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 60px -12px rgba(0,0,0,0.7);
+  border-color: var(--gv-border-mid) !important;
+}
+
+/* Image zoom on hover */
+.product-card .media,
+.product-card__media,
+.card-gallery {
+  overflow: hidden;
+}
+
+.product-card .media img,
+.product-card__media img,
+.card-gallery img,
+.product-card__image {
+  transition: transform 0.65s var(--gv-ease-out) !important;
+  transform-origin: center center;
+}
+
+.product-card:hover .media img,
+.product-card:hover .product-card__media img,
+.product-card:hover .card-gallery img,
+.product-card:hover .product-card__image {
+  transform: scale(1.06) !important;
+}
+
+/* Product info text */
+.product-card__info,
+.card__content {
+  padding: 12px 14px 14px !important;
+  background: var(--gv-off-black) !important;
+}
+
+.product-card__title,
+.card__heading,
+.product-card__title a {
+  color: var(--gv-white) !important;
+  font-size: 0.82rem !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+}
+
+.price,
+.price--sale,
+.product-card__price {
+  color: var(--gv-muted) !important;
+  font-size: 0.78rem !important;
+}
+
+/* ================================================================
+   BUTTONS
+   ================================================================ */
+
+.button,
+button.button,
+a.button,
+.btn,
+[class*="button--"] {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  font-size: 0.72rem !important;
+  font-weight: 600 !important;
+  transition:
+    color var(--gv-t-fast) var(--gv-ease),
+    background-color var(--gv-t-fast) var(--gv-ease),
+    border-color var(--gv-t-fast) var(--gv-ease),
+    transform var(--gv-t-fast) var(--gv-ease),
+    box-shadow var(--gv-t-fast) var(--gv-ease) !important;
+}
+
+/* Wipe-fill hover effect */
+.button::after,
+button.button::after,
+a.button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gv-red);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.38s var(--gv-ease-out);
+  z-index: 0;
+}
+
+.button > *,
+.button > span {
+  position: relative;
+  z-index: 1;
+}
+
+.button:hover::after,
+button.button:hover::after,
+a.button:hover::after {
+  transform: scaleX(1);
+}
+
+.button:hover {
+  color: #fff !important;
+  border-color: var(--gv-red) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px var(--gv-red-glow);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+/* Primary button already red — hover makes it slightly lighter */
+.button-primary,
+[class*="button--primary"] {
+  background: var(--gv-red) !important;
+  color: #fff !important;
+  border-color: var(--gv-red) !important;
+}
+
+.button-primary::after {
+  background: var(--gv-red-dark);
+}
+
+/* Secondary — outlined ghost */
+.button-secondary,
+[class*="button--secondary"] {
+  background: transparent !important;
+  color: var(--gv-white) !important;
+  border-color: var(--gv-border-mid) !important;
+}
+
+/* ================================================================
+   NAVIGATION LINKS — underline draw effect
+   ================================================================ */
+
+.header-menu__link,
+.header-menu__item > a,
+nav a {
+  position: relative;
+  color: var(--gv-white) !important;
+  text-decoration: none !important;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem !important;
+  text-transform: uppercase !important;
+  transition: color var(--gv-t-fast) var(--gv-ease) !important;
+}
+
+.header-menu__link::after,
+.header-menu__item > a::after,
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--gv-red);
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.32s var(--gv-ease);
+}
+
+.header-menu__link:hover::after,
+.header-menu__item > a:hover::after,
+nav a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+.header-menu__link:hover,
+.header-menu__item > a:hover,
+nav a:hover {
+  color: var(--gv-red) !important;
+}
+
+/* ================================================================
+   SECTION DIVIDERS
+   ================================================================ */
+
+.shopify-section {
+  position: relative;
+}
+
+/* Thin line between sections */
+.shopify-section + .shopify-section:not([class*="hero"]) {
+  border-top: 1px solid var(--gv-border);
+}
+
+/* Section heading / labels */
+.section-header,
+[class*="section__header"],
+[class*="section-header"] {
+  color: var(--gv-white) !important;
+  letter-spacing: 0.04em;
+}
+
+/* ================================================================
+   COLLECTION / RESOURCE LISTS
+   ================================================================ */
+
+.collection-card,
+.blog-post-card,
+.featured-blog-posts-card {
+  background: var(--gv-off-black) !important;
+  border: 1px solid var(--gv-border) !important;
+  border-radius: 2px !important;
+  overflow: hidden;
+  transition:
+    transform var(--gv-t-mid) var(--gv-ease),
+    border-color var(--gv-t-mid) var(--gv-ease) !important;
+}
+
+.collection-card:hover,
+.blog-post-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--gv-border-mid) !important;
+}
+
+/* ================================================================
+   INPUTS & FORMS
+   ================================================================ */
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+textarea,
+select {
+  background: var(--gv-surface) !important;
+  color: var(--gv-white) !important;
+  border-color: var(--gv-border-mid) !important;
+  border-radius: 2px !important;
+  transition:
+    border-color var(--gv-t-fast) var(--gv-ease),
+    box-shadow var(--gv-t-fast) var(--gv-ease) !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none !important;
+  border-color: var(--gv-red) !important;
+  box-shadow: 0 0 0 2px var(--gv-red-glow) !important;
+}
+
+/* ================================================================
+   CART DRAWER
+   ================================================================ */
+
+.cart-drawer,
+drawer-component {
+  background: var(--gv-off-black) !important;
+  border-left: 1px solid var(--gv-border) !important;
+  color: var(--gv-white) !important;
+}
+
+.cart-drawer * {
+  color: var(--gv-white);
+}
+
+/* Backdrop */
+.drawer-overlay,
+[class*="drawer__overlay"] {
+  background: rgba(0, 0, 0, 0.75) !important;
+  backdrop-filter: blur(6px) !important;
+}
+
+/* ================================================================
+   SEARCH MODAL
+   ================================================================ */
+
+[class*="search-modal"],
+dialog[id*="search"] {
+  background: rgba(8, 8, 8, 0.97) !important;
+  backdrop-filter: saturate(180%) blur(24px) !important;
+}
+
+/* ================================================================
+   FOOTER
+   ================================================================ */
+
+footer,
+.footer,
+[class*="footer"] {
+  background: var(--gv-off-black) !important;
+  border-top: 1px solid var(--gv-border) !important;
+  color: var(--gv-off-white) !important;
+}
+
+footer a, .footer a {
+  color: var(--gv-off-white) !important;
+  transition: color var(--gv-t-fast) var(--gv-ease) !important;
+}
+
+footer a:hover, .footer a:hover {
+  color: var(--gv-red) !important;
+}
+
+/* ================================================================
+   PAGE TRANSITION OVERLAY
+   ================================================================ */
+
+.gv-page-transition {
+  position: fixed;
+  inset: 0;
+  background: var(--gv-black);
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: none;
+}
+
+.gv-page-transition--out {
+  opacity: 1;
+  transform: translateY(0);
+  transition: transform 0.45s var(--gv-ease-out);
+}
+
+.gv-page-transition--in {
+  opacity: 1;
+  transform: translateY(0);
+  animation: gv-page-in 0.45s var(--gv-ease-out) forwards;
+}
+
+@keyframes gv-page-in {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-100%); }
+}
+
+/* ================================================================
+   BADGE & PRICE TAGS
+   ================================================================ */
+
+.badge {
+  background: var(--gv-red) !important;
+  color: #fff !important;
+  border-radius: 2px !important;
+  font-size: 0.6rem !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  font-weight: 700 !important;
+  padding: 3px 8px !important;
+}
+
+/* ================================================================
+   MISC POLISH
+   ================================================================ */
+
+/* Remove Horizon's hover card scale effects we're replacing */
+.card-hover-effect-lift .product-card {
+  transition: transform var(--gv-t-mid) var(--gv-ease) !important;
+}
+
+/* Icon stroke color */
+svg, [class*="icon"] {
+  color: var(--gv-white);
+}
+
+/* Quantity input, selectors */
+.quantity {
+  background: var(--gv-surface) !important;
+  border-color: var(--gv-border-mid) !important;
+  color: var(--gv-white) !important;
+}
+
+/* Ghost icon in empty states */
+.icon-placeholder svg {
+  fill: var(--gv-border-mid);
+}
+
+/* ================================================================
+   RESPONSIVE OVERRIDES
+   ================================================================ */
+
+@media screen and (max-width: 749px) {
+  .gv-cursor, .gv-cursor-ring { display: none; }
+
+  .button {
+    font-size: 0.7rem !important;
+    letter-spacing: 0.1em !important;
+  }
+}
+
+/* ================================================================
+   UTILITY CLASSES
+   ================================================================ */
+
+.gv-sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}

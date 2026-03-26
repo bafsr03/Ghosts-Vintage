@@ -6,86 +6,27 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
-    "hero_jVaWmY": {
-      "type": "hero",
-      "blocks": {
-        "text_YLPk4p": {
-          "type": "text",
-          "name": "t:names.heading",
-          "settings": {
-            "text": "<p>Browse our latest products</p>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h2",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "var(--color-foreground-heading)",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "button_H9gpTf": {
-          "type": "button",
-          "name": "t:names.button",
-          "settings": {
-            "label": "Shop all",
-            "link": "shopify://collections/all",
-            "open_in_new_tab": false,
-            "style_class": "button-secondary",
-            "width": "fit-content",
-            "custom_width": 100,
-            "width_mobile": "fit-content",
-            "custom_width_mobile": 100
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "text_YLPk4p",
-        "button_H9gpTf"
-      ],
-      "name": "t:names.hero",
+    "hero_custom": {
+      "type": "custom-liquid",
       "settings": {
-        "media_type_1": "image",
-        "media_type_2": "image",
-        "stack_media_on_mobile": false,
-        "custom_mobile_media": false,
-        "media_type_1_mobile": "image",
-        "media_type_2_mobile": "image",
-        "open_in_new_tab": false,
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "space-between",
-        "vertical_alignment": "flex-end",
-        "align_baseline": true,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "flex-end",
-        "gap": 24,
+        "custom_liquid": "\n<style>\n.gv-hero{\n  position:relative;\n  min-height:100svh;\n  display:flex;\n  flex-direction:column;\n  align-items:center;\n  justify-content:center;\n  overflow:hidden;\n  background:#080808;\n}\n.gv-hero__bg{\n  position:absolute;inset:0;z-index:0;\n  background:linear-gradient(to bottom,rgba(8,8,8,0.3) 0%,rgba(8,8,8,0.15) 40%,rgba(8,8,8,0.75) 80%,#080808 100%);\n}\n.gv-hero__bg-img{\n  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;\n  filter:brightness(0.5) saturate(0.65);\n}\n.gv-hero__body{\n  position:relative;z-index:1;\n  display:flex;\n  flex-direction:column;\n  align-items:center;\n  text-align:center;\n  padding:0 24px;\n  gap:0;\n  animation:gv-body-in 1s cubic-bezier(0,0,0.18,1) 0.3s both;\n}\n@keyframes gv-body-in{\n  from{opacity:0;transform:translateY(28px);}\n  to{opacity:1;transform:translateY(0);}\n}\n.gv-hero__icon{\n  width:320px;height:320px;\n  object-fit:contain;\n  margin-bottom:32px;\n  filter:drop-shadow(0 0 40px rgba(232,76,43,0.45));\n  animation:gv-float 4s ease-in-out infinite;\n}\n@keyframes gv-float{\n  0%,100%{transform:translateY(0);}\n  50%{transform:translateY(-10px);}\n}\n.gv-hero__eyebrow{\n  font-size:.65rem;\n  letter-spacing:.35em;\n  text-transform:uppercase;\n  color:rgba(245,244,240,0.5);\n  font-weight:600;\n  margin:0 0 16px;\n}\n.gv-hero__heading{\n  font-size:clamp(2.8rem,7.5vw,7rem);\n  font-weight:800;\n  line-height:0.93;\n  letter-spacing:-0.03em;\n  text-transform:uppercase;\n  color:#f5f4f0;\n  margin:0 0 40px;\n}\n.gv-hero__btn{\n  display:inline-block;\n  padding:16px 40px;\n  font-size:.7rem;\n  letter-spacing:.2em;\n  text-transform:uppercase;\n  font-weight:700;\n  color:#fff;\n  background:transparent;\n  border:1px solid rgba(245,244,240,0.35);\n  border-radius:2px;\n  text-decoration:none;\n  transition:background .25s ease,border-color .25s ease,transform .2s ease;\n}\n.gv-hero__btn:hover{\n  background:#E84C2B;\n  border-color:#E84C2B;\n  transform:translateY(-2px);\n}\n.gv-hero__scroll{\n  position:absolute;\n  bottom:28px;left:50%;\n  transform:translateX(-50%);\n  z-index:2;\n  display:flex;flex-direction:column;align-items:center;gap:8px;\n}\n.gv-hero__scroll span{\n  font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;\n  color:rgba(245,244,240,0.3);\n}\n.gv-hero__scroll-line{\n  width:1px;height:40px;\n  background:linear-gradient(to bottom,rgba(245,244,240,0.4),transparent);\n  animation:gv-scroll-drop 1.6s ease-in-out infinite;\n}\n@keyframes gv-scroll-drop{\n  0%{transform:scaleY(0);transform-origin:top;}\n  50%{transform:scaleY(1);transform-origin:top;}\n  51%{transform:scaleY(1);transform-origin:bottom;}\n  100%{transform:scaleY(0);transform-origin:bottom;}\n}\n@media(max-width:749px){\n  .gv-hero__heading{font-size:clamp(2.2rem,10vw,3.8rem);}\n  .gv-hero__icon{width:120px;height:120px;}\n}\n</style>\n\n<div class=\"gv-hero\">\n  <div class=\"gv-hero__bg\">\n    <img\n      src=\"https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=1600&q=80\"\n      alt=\"\"\n      class=\"gv-hero__bg-img\"\n      loading=\"eager\"\n      fetchpriority=\"high\"\n    >\n  </div>\n\n  <div class=\"gv-hero__body\">\n    <img\n      src=\"{{ 'Logo.png' | asset_url }}\"\n      alt=\"Ghosts Vintage\"\n      class=\"gv-hero__icon\"\n      width=\"160\"\n      height=\"160\"\n      loading=\"eager\"\n    >\n    <p class=\"gv-hero__eyebrow\">New Arrivals</p>\n    <h1 class=\"gv-hero__heading\">DRESS LIKE<br>A GHOST.</h1>\n    <a href=\"/collections/all\" class=\"gv-hero__btn\">Shop the Collection</a>\n  </div>\n\n  <div class=\"gv-hero__scroll\" aria-hidden=\"true\">\n    <span>Scroll</span>\n    <div class=\"gv-hero__scroll-line\"></div>\n  </div>\n</div>\n",
+        "color_scheme": "scheme-1",
+        "section_width": "full-width",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "brand_statement": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "\n<style>\n.gv-statement{text-align:center;max-width:1100px;margin:0 auto;padding:0 24px}\n.gv-statement__label{display:block;font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:#E84C2B;font-weight:600;margin-bottom:28px}\n.gv-statement__text{font-size:clamp(2rem,5.5vw,5rem);font-weight:800;line-height:1.06;letter-spacing:-.02em;color:#f5f4f0;margin:0;text-transform:uppercase}\n.gv-statement__text em{font-style:normal;text-decoration:line-through;color:rgba(245,244,240,.45)}\n.gv-statement__sub{margin-top:32px;font-size:.85rem;letter-spacing:.08em;color:rgba(245,244,240,.55);text-transform:uppercase}\n</style>\n<div class=\"gv-statement\">\n  <span class=\"gv-statement__label\">Our Obsession</span>\n  <p class=\"gv-statement__text\">\n    TO HUNT DOWN THE <em>RAREST</em>,<br>\n    MOST ICONIC PIECES AND<br>\n    GIVE THEM A <em>SECOND</em> LIFE.<br>\n    THIS IS VINTAGE DONE <em>RIGHT</em>.\n  </p>\n  <p class=\"gv-statement__sub\">Ghosts Vintage &mdash; Est. Los Angeles</p>\n</div>\n",
+        "color_scheme": "scheme-1",
         "section_width": "page-width",
-        "section_height": "medium",
-        "section_height_custom": 50,
-        "color_scheme": "scheme-6",
-        "toggle_overlay": true,
-        "overlay_color": "#12121266",
-        "overlay_style": "solid",
-        "gradient_direction": "to bottom",
-        "blurred_reflection": false,
-        "reflection_opacity": 75,
         "padding-block-start": 100,
-        "padding-block-end": 72
+        "padding-block-end": 100
       }
     },
     "product_list_fa6P9H": {
@@ -129,7 +70,7 @@
               "type": "_product-list-text",
               "name": "t:names.collection_title",
               "settings": {
-                "text": "<h3>{{ closest.collection.title }}</h3>",
+                "text": "<h3>New Arrivals</h3>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -176,7 +117,7 @@
           "name": "t:names.product_card",
           "static": true,
           "settings": {
-            "product_card_gap": 4,
+            "product_card_gap": 8,
             "inherit_color_scheme": true,
             "color_scheme": "",
             "border": "none",
@@ -193,7 +134,7 @@
               "type": "_product-card-gallery",
               "name": "t:names.product_card_media",
               "settings": {
-                "image_ratio": "adapt",
+                "image_ratio": "portrait",
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
@@ -214,16 +155,16 @@
                 "alignment": "left",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
-                "font_size": "1rem",
+                "font_size": "0.82rem",
                 "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
+                "letter_spacing": "0.04em",
+                "case": "uppercase",
                 "wrap": "pretty",
                 "color": "var(--color-foreground)",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
-                "padding-block-start": 4,
+                "padding-block-start": 12,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
@@ -241,12 +182,12 @@
                 "width": "100%",
                 "alignment": "left",
                 "font": "var(--font-body--family)",
-                "font_size": "1rem",
+                "font_size": "0.78rem",
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
                 "color": "var(--color-foreground)",
-                "padding-block-start": 0,
+                "padding-block-start": 4,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
@@ -261,30 +202,64 @@
           ]
         }
       },
-      "name": "Featured collection",
+      "name": "New Arrivals",
       "settings": {
         "collection": "all",
         "layout_type": "grid",
-        "carousel_on_mobile": false,
+        "carousel_on_mobile": true,
         "max_products": 8,
         "columns": 4,
         "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 8,
-        "rows_gap": 24,
+        "mobile_card_size": "70cqw",
+        "columns_gap": 12,
+        "rows_gap": 32,
         "icons_style": "arrow",
         "icons_shape": "none",
         "section_width": "page-width",
         "horizontal_alignment": "flex-start",
-        "gap": 28,
+        "gap": 40,
         "color_scheme": "scheme-1",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "padding-block-start": 80,
+        "padding-block-end": 80
+      }
+    },
+    "three_pillars": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "\n<style>\n.gv-pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;width:100%}\n@media(max-width:749px){.gv-pillars{grid-template-columns:1fr}}\n.gv-pillar{position:relative;aspect-ratio:3/4;overflow:hidden;background:#111}\n.gv-pillar__img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s cubic-bezier(0,0,.18,1);filter:brightness(.55)}\n.gv-pillar:hover .gv-pillar__img{transform:scale(1.06);filter:brightness(.4)}\n.gv-pillar__body{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:32px 28px}\n.gv-pillar__num{font-size:.65rem;letter-spacing:.28em;text-transform:uppercase;color:#E84C2B;font-weight:700;margin-bottom:10px}\n.gv-pillar__title{font-size:1.6rem;font-weight:800;text-transform:uppercase;color:#f5f4f0;letter-spacing:.02em;margin:0 0 10px}\n.gv-pillar__desc{font-size:.78rem;line-height:1.55;color:rgba(245,244,240,.65);margin:0;max-width:260px}\n</style>\n<div class=\"gv-pillars\">\n  <div class=\"gv-pillar\">\n    <img src=\"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80\" alt=\"The Hunt\" class=\"gv-pillar__img\">\n    <div class=\"gv-pillar__body\">\n      <span class=\"gv-pillar__num\">01</span>\n      <h3 class=\"gv-pillar__title\">The Hunt</h3>\n      <p class=\"gv-pillar__desc\">We scour estate sales, markets and closets across the country for the pieces worth saving.</p>\n    </div>\n  </div>\n  <div class=\"gv-pillar\">\n    <img src=\"https://images.unsplash.com/photo-1445205170230-053b83016050?w=600&q=80\" alt=\"The Find\" class=\"gv-pillar__img\">\n    <div class=\"gv-pillar__body\">\n      <span class=\"gv-pillar__num\">02</span>\n      <h3 class=\"gv-pillar__title\">The Find</h3>\n      <p class=\"gv-pillar__desc\">Every item is hand-selected, authenticated and restored to its original glory — or better.</p>\n    </div>\n  </div>\n  <div class=\"gv-pillar\">\n    <img src=\"https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=600&q=80\" alt=\"The Haunt\" class=\"gv-pillar__img\">\n    <div class=\"gv-pillar__body\">\n      <span class=\"gv-pillar__num\">03</span>\n      <h3 class=\"gv-pillar__title\">The Haunt</h3>\n      <p class=\"gv-pillar__desc\">Your wardrobe becomes a curated archive. One-of-a-kind pieces, worn by legends, now yours.</p>\n    </div>\n  </div>\n</div>\n",
+        "color_scheme": "scheme-1",
+        "section_width": "full-width",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "newsletter_section": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "\n<style>\n.gv-newsletter{text-align:center;max-width:680px;margin:0 auto;padding:0 24px}\n.gv-newsletter__label{display:block;font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(245,244,240,.5);margin-bottom:20px}\n.gv-newsletter__title{font-size:clamp(2.2rem,5vw,4rem);font-weight:800;text-transform:uppercase;letter-spacing:-.01em;color:#f5f4f0;margin:0 0 10px}\n.gv-newsletter__title span{color:#E84C2B}\n.gv-newsletter__sub{font-size:.82rem;color:rgba(245,244,240,.5);letter-spacing:.06em;text-transform:uppercase;margin-bottom:40px}\n.gv-newsletter__form{display:flex;gap:0;max-width:480px;margin:0 auto;border:1px solid rgba(245,244,240,.18);border-radius:2px;overflow:hidden}\n.gv-newsletter__input{flex:1;background:transparent;border:none;color:#f5f4f0;font-size:.82rem;letter-spacing:.08em;padding:16px 20px;outline:none}\n.gv-newsletter__input::placeholder{color:rgba(245,244,240,.35);text-transform:uppercase;letter-spacing:.1em}\n.gv-newsletter__btn{background:#E84C2B;color:#fff;border:none;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;padding:16px 24px;cursor:pointer;transition:background .2s ease;white-space:nowrap}\n.gv-newsletter__btn:hover{background:#c73d21}\n.gv-divider-line{width:80px;height:2px;background:#E84C2B;margin:0 auto 40px;display:block}\n</style>\n<div class=\"gv-newsletter\">\n  <span class=\"gv-newsletter__label\">Stay in the loop</span>\n  <h2 class=\"gv-newsletter__title\">JOIN THE <span>HAUNT</span></h2>\n  <p class=\"gv-newsletter__sub\">New drops. Rare finds. First access.</p>\n  <span class=\"gv-divider-line\"></span>\n  <form class=\"gv-newsletter__form\" action=\"/contact#contact_form\" method=\"post\" accept-charset=\"UTF-8\">\n    <input type=\"hidden\" name=\"form_type\" value=\"customer\">\n    <input type=\"hidden\" name=\"utf8\" value=\"✓\">\n    <input type=\"hidden\" name=\"contact[tags]\" value=\"newsletter\">\n    <input class=\"gv-newsletter__input\" type=\"email\" name=\"contact[email]\" placeholder=\"Your email address\" required>\n    <button class=\"gv-newsletter__btn\" type=\"submit\">Subscribe</button>\n  </form>\n</div>\n",
+        "color_scheme": "scheme-1",
+        "section_width": "page-width",
+        "padding-block-start": 100,
+        "padding-block-end": 100
+      }
+    },
+    "service_cta": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "\n<style>\n.gv-service{text-align:center;position:relative;overflow:hidden}\n.gv-service__bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=1400&q=80') center/cover no-repeat;filter:brightness(.25);z-index:0}\n.gv-service__inner{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:0 24px}\n.gv-service__label{display:block;font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(245,244,240,.5);margin-bottom:20px}\n.gv-service__title{font-size:clamp(2.8rem,7vw,6rem);font-weight:800;text-transform:uppercase;letter-spacing:-.02em;color:#f5f4f0;margin:0 0 20px;line-height:1}\n.gv-service__desc{font-size:.88rem;line-height:1.7;color:rgba(245,244,240,.6);margin:0 0 44px;max-width:500px;margin-left:auto;margin-right:auto}\n.gv-service__btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}\n.gv-service__btn{display:inline-block;padding:14px 32px;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;text-decoration:none;border-radius:2px;transition:all .25s ease}\n.gv-service__btn--primary{background:#E84C2B;color:#fff;border:1px solid #E84C2B}\n.gv-service__btn--primary:hover{background:#c73d21;border-color:#c73d21}\n.gv-service__btn--secondary{background:transparent;color:#f5f4f0;border:1px solid rgba(245,244,240,.3)}\n.gv-service__btn--secondary:hover{background:rgba(245,244,240,.08);border-color:rgba(245,244,240,.5)}\n</style>\n<div class=\"gv-service\">\n  <div class=\"gv-service__bg\"></div>\n  <div class=\"gv-service__inner\">\n    <span class=\"gv-service__label\">Need something special?</span>\n    <h2 class=\"gv-service__title\">AT YOUR<br>SERVICE</h2>\n    <p class=\"gv-service__desc\">Personal styling. Custom sourcing. Private appointments. Whatever you need — we make vintage work for you.</p>\n    <div class=\"gv-service__btns\">\n      <a href=\"/pages/contact\" class=\"gv-service__btn gv-service__btn--primary\">Contact Us</a>\n      <a href=\"/collections/all\" class=\"gv-service__btn gv-service__btn--secondary\">Shop Now</a>\n    </div>\n  </div>\n</div>\n",
+        "color_scheme": "scheme-1",
+        "section_width": "full-width",
+        "padding-block-start": 100,
+        "padding-block-end": 100
       }
     }
   },
   "order": [
-    "hero_jVaWmY",
-    "product_list_fa6P9H"
+    "hero_custom",
+    "brand_statement",
+    "product_list_fa6P9H",
+    "three_pillars",
+    "newsletter_section",
+    "service_cta"
   ]
 }
