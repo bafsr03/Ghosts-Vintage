@@ -1,0 +1,9 @@
+# Mac system files
+.DS_Store
+
+# Shopify theme files to ignore
+# config/settings_data.json
+# assets/theme.scss.liquid.bak
+# *.log
+node_modules/
+.shopify/
