@@ -7,8 +7,8 @@
 >
   <head>
     {%- comment -%} Charlie Pike Tobacco favicon — Asset 4.png {%- endcomment -%}
-    <link rel="icon" type="image/png" href="{{ 'SVG/Asset 4.png' | asset_url }}">
-    <link rel="apple-touch-icon" href="{{ 'SVG/Asset 4.png' | asset_url }}">
+    <link rel="icon" type="image/png" href="{{ 'cp-logo.png' | asset_url }}">
+    <link rel="apple-touch-icon" href="{{ 'cp-logo.png' | asset_url }}">
     {%- if settings.favicon != blank -%}
       <link
         rel="icon"
@@ -40,7 +40,7 @@
     {%- comment -%} Page intro animation (only shown on first visit per session) {%- endcomment -%}
     <div class="gv-intro" id="gv-intro" aria-hidden="true">
       <img
-        src="{{ 'SVG/Asset 4.png' | asset_url }}"
+        src="{{ 'cp-logo.png' | asset_url }}"
         alt="{{ shop.name }}"
         class="gv-intro__logo"
         width="340"
@@ -58,7 +58,7 @@
     {%- comment -%} Page transition overlay {%- endcomment -%}
     <div class="gv-page-transition" aria-hidden="true">
       <div class="gv-pt-inner">
-        <img src="{{ 'SVG/Asset 4.png' | asset_url }}" alt="" class="gv-pt-logo" width="160" height="160">
+        <img src="{{ 'cp-logo.png' | asset_url }}" alt="" class="gv-pt-logo" width="160" height="160">
         <p class="gv-pt-label">Loading<span class="gv-pt-dots"><span>.</span><span>.</span><span>.</span></span></p>
       </div>
     </div>
