@@ -1,111 +1,68 @@
 
 
 {% liquid
-  assign block_settings = block.settings
-  assign use_inverse_logo = false
-
-  if section.settings.enable_transparent_header_home and template.name == 'index' and section.settings.home_color_scheme == 'inverse'
-    assign use_inverse_logo = true
-  elsif section.settings.enable_transparent_header_product and template.name == 'product' and section.settings.product_color_scheme == 'inverse'
-    assign use_inverse_logo = true
-  elsif section.settings.enable_transparent_header_collection and template.name == 'collection' and section.settings.collection_color_scheme == 'inverse'
-    assign use_inverse_logo = true
-  endif
-
-  if use_inverse_logo
-    if settings.logo_inverse != blank
-      assign inverse_logo = settings.logo_inverse
-    else
-      assign inverse_logo = settings.logo
-    endif
-  endif
-
-  assign alt_text_fallback = shop.name | escape | append: ' ' | append: 'accessibility.home' | t
+  assign alt_text_fallback = shop.name | escape | append: ' — Home'
 %}
 
-{% comment %}
-  Output all logo variants, use CSS to hide/show the appropriate one
-  based on the .header[transparent] selector
-{% endcomment %}
-<a
-  {% if template.name == 'index' and block_settings.hide_logo_on_home_page %}
-    data-hidden-on-home-page
-  {% endif %}
-  href="{{ routes.root_url }}"
-  class="size-style spacing-style header-logo gv-header-logo"
-  aria-label="{{ shop.name }} — Home"
+{%- comment -%}
+  Charlie Pike Tobacco — Split Navigation Header
+  LEFT:   Cigarettes · Cigars · Tobacco
+  CENTER: Brand logo (linked to home)
+  RIGHT:  Glass Pipes · E-Cigs · & More
+{%- endcomment -%}
+<div
+  class="size-style spacing-style header-logo gv-header-logo cp-split-nav"
   {{ block.shopify_attributes }}
 >
-  {%- comment -%}
-    Ghosts Vintage — use brand wordmark from assets.
-    mix-blend-mode: screen in CSS makes white areas transparent on dark header.
-  {%- endcomment -%}
-  <img
-    src="{{ 'Ghosts Vintage .png' | asset_url }}"
-    alt="{{ shop.name }}"
-    class="gv-header-logo__img"
-    width="220"
-    height="78"
-    loading="eager"
-    decoding="async"
+
+  {%- comment -%} Left side — 3 categories {%- endcomment -%}
+  <nav class="cp-split-nav__side cp-split-nav__side--left" aria-label="Shop categories">
+    <a href="/collections/cigarettes" class="cp-split-nav__link">Cigarettes</a>
+    <a href="/collections/cigars" class="cp-split-nav__link">Cigars</a>
+    <a href="/collections/tobacco" class="cp-split-nav__link">Tobacco</a>
+  </nav>
+
+  {%- comment -%} Center — brand logo {%- endcomment -%}
+  <a
+    href="{{ routes.root_url }}"
+    class="cp-split-nav__logo-link"
+    aria-label="{{ shop.name }} — Home"
   >
-</a>
+    <img
+      src="{{ 'SVG/Asset 4.png' | asset_url }}"
+      alt="{{ shop.name }}"
+      class="cp-split-nav__logo-img"
+      width="200"
+      height="80"
+      loading="eager"
+      decoding="async"
+    >
+  </a>
+
+  {%- comment -%} Right side — 3 categories {%- endcomment -%}
+  <nav class="cp-split-nav__side cp-split-nav__side--right" aria-label="More categories">
+    <a href="/collections/glass-pipes" class="cp-split-nav__link">Glass Pipes</a>
+    <a href="/collections/e-cigs" class="cp-split-nav__link">E-Cigs</a>
+    <a href="/collections" class="cp-split-nav__link cp-split-nav__link--more">&amp; More</a>
+  </nav>
+
+</div>
 
 {% stylesheet %}
+  /* Base header-logo flex container — overridden for split nav in gv-custom.css */
   .header-logo {
     display: flex;
     height: 100%;
-    font-size: var(--font-size--md);
-    font-family: var(--font-family);
-    font-weight: var(--font-weight);
-    font-style: var(--font-style);
-    color: var(--color-foreground);
-    justify-content: center;
     align-items: center;
     text-decoration: none;
 
-    &[data-hidden-on-home-page] {
-      display: none;
-
-      #header-component:is(
-          [sticky='always']:not([data-scroll-direction='none']),
-          [sticky='scroll-up'][data-scroll-direction='up']
-        )
-        & {
-        display: flex;
-      }
+    &:hover {
+      text-decoration: none;
     }
 
     @media screen and (max-width: 749px) {
       padding: 0;
     }
-
-    @media screen and (min-width: 750px) {
-      flex-shrink: 0;
-    }
-
-    &:hover {
-      text-decoration: none;
-    }
-  }
-
-  .header-logo__image {
-    object-fit: contain;
-    height: var(--header-logo-image-height-mobile);
-    width: var(--header-logo-image-width-mobile);
-
-    @media screen and (min-width: 750px) {
-      height: var(--header-logo-image-height);
-      width: var(--header-logo-image-width);
-    }
-  }
-
-  .header-logo:has(.header-logo__image-container--inverse) .header-logo__image-container--original {
-    display: var(--header-logo-display, block);
-  }
-
-  .header-logo__image-container--inverse {
-    display: var(--header-logo-inverse-display, none);
   }
 {% endstylesheet %}
 
@@ -118,16 +75,6 @@
     {
       "type": "paragraph",
       "content": "t:content.edit_logo_in_theme_settings"
-    },
-    {
-      "type": "header",
-      "content": "t:content.visibility"
-    },
-    {
-      "type": "checkbox",
-      "id": "hide_logo_on_home_page",
-      "label": "t:settings.hide_logo_on_home_page",
-      "info": "t:info.hide_logo_on_home_page_help"
     },
     {
       "type": "header",

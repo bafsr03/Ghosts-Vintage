@@ -1,7 +1,7 @@
 /* =================================================================
-   GHOSTS VINTAGE — Custom Theme Styles
-   Dark luxury aesthetic inspired by Last Crumb
-   Brand accent: #E84C2B (logo red-orange)
+   CHARLIE PIKE TOBACCO — Custom Theme Styles
+   Dark luxury tobacco aesthetic · Seattle's Premier Tobacco Shop
+   Brand accent: #E84C2B (bold red) + #C97A1A (tobacco amber)
    ================================================================= */
 
 /* ---- Design Tokens ---- */
@@ -15,6 +15,9 @@
   --gv-red:          #E84C2B;
   --gv-red-dark:     #c73d21;
   --gv-red-glow:     rgba(232, 76, 43, 0.25);
+  --gv-amber:        #C97A1A;
+  --gv-amber-dark:   #a86014;
+  --gv-amber-glow:   rgba(201, 122, 26, 0.3);
   --gv-border:       rgba(245, 244, 240, 0.09);
   --gv-border-mid:   rgba(245, 244, 240, 0.18);
 
@@ -203,6 +206,23 @@ body.gv-cursor--click .gv-cursor {
   width: min(200px, 50vw);
 }
 
+.gv-intro__tagline {
+  font-size: 0.62rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gv-amber);
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s var(--gv-ease-out) 0.3s, transform 0.6s var(--gv-ease-out) 0.3s;
+  margin: 0;
+}
+
+.gv-intro--show .gv-intro__tagline {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .gv-intro--exit {
   animation: gv-intro-exit 0.7s var(--gv-ease-out) forwards;
 }
@@ -309,47 +329,41 @@ body[data-template="index"] #header-group:not(.gv-header--scrolled) header-compo
 }
 
 /* ----------------------------------------------------------------
-   Header Logo — uses Ghosts Vintage .png from assets
+   Header Logo — center logo image in the split nav
    ---------------------------------------------------------------- */
 
-.gv-header-logo {
+.cp-split-nav__logo-link {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
-  padding: 10px 0;
   text-decoration: none;
+  flex-shrink: 0;
   transition: opacity var(--gv-t-fast) var(--gv-ease);
 }
 
-.gv-header-logo:hover {
-  opacity: 0.82;
+.cp-split-nav__logo-link:hover {
+  opacity: 0.85;
+  text-decoration: none;
 }
 
-.gv-header-logo__img {
-  height: 64px;
+.cp-split-nav__logo-img {
+  height: 56px;
   width: auto;
   object-fit: contain;
-  /* mix-blend-mode: screen makes the white PNG background invisible on dark header
-     so only the red/orange brand lettering shows through */
   mix-blend-mode: screen;
   filter: brightness(1.08) saturate(1.1);
-  transition: transform var(--gv-t-mid) var(--gv-spring), filter var(--gv-t-fast) var(--gv-ease);
+  transition:
+    transform var(--gv-t-mid) var(--gv-spring),
+    filter var(--gv-t-fast) var(--gv-ease);
 }
 
-.gv-header-logo:hover .gv-header-logo__img {
+.cp-split-nav__logo-link:hover .cp-split-nav__logo-img {
   transform: scale(1.04);
   filter: brightness(1.15) saturate(1.2);
 }
 
-/* Ensure the centered logo anchor fills its grid cell properly */
-.header-logo.gv-header-logo {
-  justify-content: center !important;
-  width: 100%;
-}
-
 @media screen and (max-width: 749px) {
-  .gv-header-logo__img { height: 40px; }
+  .cp-split-nav__logo-img { height: 38px; }
 }
 
 /* ================================================================
@@ -903,4 +917,295 @@ svg, [class*="icon"] {
   overflow: hidden;
   clip: rect(0,0,0,0);
   border: 0;
+}
+
+/* ================================================================
+   CHARLIE PIKE TOBACCO — SPLIT NAVIGATION
+   3 category links | centered logo | 3 category links
+   ================================================================ */
+
+/* Desktop: logo block fills full header row; hide Horizon's built-in elements */
+@media screen and (min-width: 750px) {
+  .header__row--top overflow-list,
+  .header__row--top .header-menu,
+  .header__row--top .header-actions,
+  .header__row--top [class*="header-actions"],
+  .header__row--top .search-action,
+  .header__row--top .drawer-icon,
+  .header__row--top [class*="localization"] {
+    display: none !important;
+  }
+
+  .header__row--top {
+    position: static !important;
+  }
+
+  .header-logo.gv-header-logo {
+    position: static !important;
+    transform: none !important;
+    left: auto !important;
+    width: 100% !important;
+    flex: 1 1 auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0 32px !important;
+    height: 100%;
+  }
+}
+
+/* Mobile: hide split sides, center logo, keep Horizon's drawer/hamburger */
+@media screen and (max-width: 749px) {
+  .cp-split-nav__side {
+    display: none !important;
+  }
+
+  .header__row--top {
+    position: relative !important;
+  }
+
+  .header-logo.gv-header-logo {
+    position: absolute !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 10;
+    width: auto !important;
+    flex: none !important;
+    padding: 0 !important;
+  }
+}
+
+/* Split nav sides */
+.cp-split-nav__side {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 0;
+}
+.cp-split-nav__side--left { justify-content: flex-end; }
+.cp-split-nav__side--right { justify-content: flex-start; }
+
+/* Category links */
+.cp-split-nav__link {
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: rgba(245, 244, 240, 0.7);
+  text-decoration: none;
+  padding: 6px 16px;
+  white-space: nowrap;
+  position: relative;
+  transition: color var(--gv-t-fast) var(--gv-ease);
+}
+.cp-split-nav__link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 16px;
+  right: 16px;
+  height: 1px;
+  background: var(--gv-amber);
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.32s var(--gv-ease);
+}
+.cp-split-nav__link:hover {
+  color: var(--gv-amber);
+  text-decoration: none;
+}
+.cp-split-nav__link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+.cp-split-nav__link--more {
+  color: rgba(201, 122, 26, 0.7);
+}
+.cp-split-nav__link--more:hover {
+  color: var(--gv-amber);
+}
+
+/* ================================================================
+   CHARLIE PIKE TOBACCO — CATEGORY SUB-NAV STRIP
+   Slim row inside #header-group (sticky) — compact text links
+   ================================================================ */
+
+.cp-sub-nav {
+  background: rgba(8, 8, 8, 0.93);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid var(--gv-border);
+  height: 36px;
+  display: flex;
+  align-items: center;
+  transition: background var(--gv-t-mid) var(--gv-ease);
+  position: relative;
+  z-index: 499;
+}
+
+/* Transparent on homepage before scroll — matches main header */
+body[data-template="index"] #header-group:not(.gv-header--scrolled) .cp-sub-nav {
+  background: rgba(8, 8, 8, 0.45);
+  border-bottom-color: rgba(245, 244, 240, 0.04);
+}
+
+.cp-sub-nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0 16px;
+}
+
+.cp-sub-nav__link {
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: rgba(245, 244, 240, 0.48);
+  text-decoration: none;
+  padding: 0 14px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition:
+    color var(--gv-t-fast) var(--gv-ease),
+    border-color var(--gv-t-fast) var(--gv-ease);
+  position: relative;
+}
+
+.cp-sub-nav__link:hover {
+  color: var(--gv-amber);
+  border-bottom-color: var(--gv-amber);
+  text-decoration: none;
+}
+
+/* active page highlight */
+.cp-sub-nav__link[aria-current] {
+  color: var(--gv-amber);
+  border-bottom-color: var(--gv-amber);
+}
+
+.cp-sub-nav__link--more {
+  color: rgba(201, 122, 26, 0.65);
+}
+
+.cp-sub-nav__link--more:hover {
+  color: var(--gv-amber);
+}
+
+.cp-sub-nav__sep {
+  color: rgba(245, 244, 240, 0.14);
+  font-size: 0.5rem;
+  pointer-events: none;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+/* Mobile: scroll horizontally */
+@media screen and (max-width: 749px) {
+  .cp-sub-nav {
+    overflow-x: auto;
+    scrollbar-width: none;
+    justify-content: flex-start;
+  }
+  .cp-sub-nav::-webkit-scrollbar { display: none; }
+  .cp-sub-nav__inner {
+    justify-content: flex-start;
+    width: max-content;
+    min-width: 100%;
+    padding: 0 14px;
+  }
+  .cp-sub-nav__link {
+    padding: 0 10px;
+    font-size: 0.58rem;
+  }
+}
+
+/* ================================================================
+   CHARLIE PIKE TOBACCO — HERO SECTION
+   Background is handled by the custom-liquid section in index.json
+   (real <img> tag with Ken Burns animation — no CSS override needed)
+   ================================================================ */
+
+/* ================================================================
+   CHARLIE PIKE TOBACCO — AMBER ACCENT OVERRIDES
+   Swap select interactive elements to tobacco amber
+   ================================================================ */
+
+/* Amber glow on amber-targeted elements */
+.cp-accent {
+  color: var(--gv-amber) !important;
+}
+
+/* Override marquee strip accent for CP Tobacco */
+.gv-marquee-wrap {
+  background: linear-gradient(90deg, var(--gv-red) 0%, #b84a10 50%, var(--gv-amber-dark) 100%);
+}
+
+/* Tab/active nav item amber underline */
+.header-menu__item > [aria-current="page"]::after,
+.header-menu__item > [aria-current]::after {
+  transform: scaleX(1) !important;
+  background: var(--gv-amber) !important;
+}
+
+/* Selection highlight updates */
+::selection {
+  background: var(--gv-amber);
+  color: #fff;
+}
+
+/* ================================================================
+   CHARLIE PIKE TOBACCO — ABOUT STRIP
+   Compact info bar below hero
+   ================================================================ */
+
+.cp-about-strip {
+  background: var(--gv-off-black);
+  border-top: 1px solid var(--gv-border);
+  border-bottom: 1px solid var(--gv-border);
+  padding: 28px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.cp-about-strip__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+}
+
+.cp-about-strip__value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gv-amber);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.cp-about-strip__label {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gv-muted);
+  font-weight: 600;
+}
+
+.cp-about-strip__divider {
+  width: 1px;
+  height: 36px;
+  background: var(--gv-border);
+}
+
+@media screen and (max-width: 749px) {
+  .cp-about-strip { gap: 24px; }
+  .cp-about-strip__divider { display: none; }
 }

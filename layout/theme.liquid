@@ -6,9 +6,9 @@
   lang="{{ request.locale.iso_code }}"
 >
   <head>
-    {%- comment -%} Ghosts Vintage favicon — always use Logo.png from assets {%- endcomment -%}
-    <link rel="icon" type="image/png" href="{{ 'Logo.png' | asset_url }}">
-    <link rel="apple-touch-icon" href="{{ 'Logo.png' | asset_url }}">
+    {%- comment -%} Charlie Pike Tobacco favicon — Asset 4.png {%- endcomment -%}
+    <link rel="icon" type="image/png" href="{{ 'SVG/Asset 4.png' | asset_url }}">
+    <link rel="apple-touch-icon" href="{{ 'SVG/Asset 4.png' | asset_url }}">
     {%- if settings.favicon != blank -%}
       <link
         rel="icon"
@@ -40,13 +40,14 @@
     {%- comment -%} Page intro animation (only shown on first visit per session) {%- endcomment -%}
     <div class="gv-intro" id="gv-intro" aria-hidden="true">
       <img
-        src="{{ 'Ghosts Vintage .png' | asset_url }}"
+        src="{{ 'SVG/Asset 4.png' | asset_url }}"
         alt="{{ shop.name }}"
         class="gv-intro__logo"
         width="340"
         height="120"
         loading="eager"
       >
+      <div class="gv-intro__tagline">Seattle's Premier Tobacco Shop</div>
       <div class="gv-intro__line"></div>
     </div>
 
@@ -57,7 +58,7 @@
     {%- comment -%} Page transition overlay {%- endcomment -%}
     <div class="gv-page-transition" aria-hidden="true">
       <div class="gv-pt-inner">
-        <img src="{{ 'Logo.png' | asset_url }}" alt="" class="gv-pt-logo" width="160" height="160">
+        <img src="{{ 'SVG/Asset 4.png' | asset_url }}" alt="" class="gv-pt-logo" width="160" height="160">
         <p class="gv-pt-label">Loading<span class="gv-pt-dots"><span>.</span><span>.</span><span>.</span></span></p>
       </div>
     </div>
@@ -65,16 +66,18 @@
     {%- comment -%} Announcement marquee strip {%- endcomment -%}
     <div class="gv-marquee-wrap" aria-label="Announcements">
       <div class="gv-marquee-track" role="marquee">
-        <span class="gv-marquee-item">Opens at noon Wednesday - Sunday</span>
-        <span class="gv-marquee-item">Curated Vintage &amp; Secondhand Finds</span>
-        <span class="gv-marquee-item">New Arrivals Every Week</span>
-        <span class="gv-marquee-item">Sustainably Sourced Fashion</span>
-        <span class="gv-marquee-item">Follow Us @ghosts.seattle.vintage</span>
-        <span class="gv-marquee-item">Opens at noon Wednesday - Sunday</span>
-        <span class="gv-marquee-item">Curated Vintage &amp; Secondhand Finds</span>
-        <span class="gv-marquee-item">New Arrivals Every Week</span>
-        <span class="gv-marquee-item">Sustainably Sourced Fashion</span>
-        <span class="gv-marquee-item">Follow Us @ghosts.seattle.vintage</span>
+        <span class="gv-marquee-item">Open Daily 9AM – 11PM</span>
+        <span class="gv-marquee-item">611 E Pike St, Seattle WA</span>
+        <span class="gv-marquee-item">American-Made Heady Glass</span>
+        <span class="gv-marquee-item">Premium Vape Mods &amp; E-Cigs</span>
+        <span class="gv-marquee-item">Cigars · Cigarettes · Tobacco</span>
+        <span class="gv-marquee-item">Seattle's Premier Tobacco Shop</span>
+        <span class="gv-marquee-item">Open Daily 9AM – 11PM</span>
+        <span class="gv-marquee-item">611 E Pike St, Seattle WA</span>
+        <span class="gv-marquee-item">American-Made Heady Glass</span>
+        <span class="gv-marquee-item">Premium Vape Mods &amp; E-Cigs</span>
+        <span class="gv-marquee-item">Cigars · Cigarettes · Tobacco</span>
+        <span class="gv-marquee-item">Seattle's Premier Tobacco Shop</span>
       </div>
     </div>
 
@@ -172,7 +175,37 @@
       {% render 'quick-add-modal' %}
     {% endif %}
 
-    {%- comment -%} Ghosts Vintage — custom animations & effects {%- endcomment -%}
+    {%- comment -%} Charlie Pike Tobacco — About stat strip (homepage only) {%- endcomment -%}
+    {%- if template.name == 'index' -%}
+    <section class="cp-about-strip" aria-label="About Charlie Pike Tobacco">
+      <div class="cp-about-strip__stat">
+        <span class="cp-about-strip__value">9AM</span>
+        <span class="cp-about-strip__label">Opens Daily</span>
+      </div>
+      <div class="cp-about-strip__divider"></div>
+      <div class="cp-about-strip__stat">
+        <span class="cp-about-strip__value">11PM</span>
+        <span class="cp-about-strip__label">Closes Daily</span>
+      </div>
+      <div class="cp-about-strip__divider"></div>
+      <div class="cp-about-strip__stat">
+        <span class="cp-about-strip__value">611</span>
+        <span class="cp-about-strip__label">E Pike St · Seattle</span>
+      </div>
+      <div class="cp-about-strip__divider"></div>
+      <div class="cp-about-strip__stat">
+        <span class="cp-about-strip__value">★ 8.2</span>
+        <span class="cp-about-strip__label">Product Variety</span>
+      </div>
+      <div class="cp-about-strip__divider"></div>
+      <div class="cp-about-strip__stat">
+        <span class="cp-about-strip__value">Heady</span>
+        <span class="cp-about-strip__label">American-Made Glass</span>
+      </div>
+    </section>
+    {%- endif -%}
+
+    {%- comment -%} Charlie Pike Tobacco — custom animations & effects {%- endcomment -%}
     <script src="{{ 'gv-custom.js' | asset_url }}" defer></script>
   </body>
 </html>
