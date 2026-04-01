@@ -202,6 +202,7 @@
           ]
         }
       },
+      "disabled": true,
       "name": "Featured Products",
       "settings": {
         "collection": "all",
